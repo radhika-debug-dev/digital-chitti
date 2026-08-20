@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Digital Chitti Book</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div>
+
+        <h1>📒 DIGITAL CHITTI BOOK</h1>
+
+        <p>
+            Manage chitti members and payments
+        </p>
+
+    </div>
+
+
+    <div class="header-buttons">
+
+        <button
+            class="add-btn"
+            id="addMemberTop"
+        >
+            ＋ Add Member
+        </button>
+
+
+        <button
+            class="save-btn"
+            id="saveButton"
+        >
+            💾 Save
+        </button>
+<button
+    class="slip-btn"
+    id="generateSlip"
+>
+    📄 Generate Slip
+</button>
+
+<button
+    class="whatsapp-btn"
+    id="whatsappShare"
+>
+    💬 WhatsApp
+</button>
+
+        <button
+            class="print-btn"
+            onclick="window.print()"
+        >
+            🖨 Print / PDF
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+    <!-- ========================= -->
+    <!-- MEMBERS -->
+    <!-- ========================= -->
+
+    <aside class="members-panel">
+
+        <input
+            type="text"
+            id="searchMember"
+            placeholder="🔍 Search member..."
+        >
+
+
+        <h2>MEMBERS</h2>
+
+
+        <div id="memberList"></div>
+
+
+        <button
+            class="add-member-bottom"
+            id="addMemberBottom"
+        >
+            ＋ Add Member
+        </button>
+
+    </aside>
+
+
+
+    <!-- ========================= -->
+    <!-- CHITTI WORKSPACE -->
+    <!-- ========================= -->
+
+    <section class="chitti-panel">
+
+
+        <div class="top-details">
+
+            <div>
+
+                <label>
+                    Chitti No.
+                </label>
+
+                <input
+                    type="number"
+                    id="chittiNumber"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="chittiDate"
+                >
+
+            </div>
+
+        </div>
+
+
+
+        <label>
+            Member Name
+        </label>
+
+        <input
+            class="name-input"
+            type="text"
+            id="memberName"
+        >
+
+
+
+        <label>
+            Phone Number
+        </label>
+
+        <input
+            class="name-input"
+            type="tel"
+            id="memberPhone"
+        >
+
+
+
+        <!-- ========================= -->
+        <!-- CHITTI TABLE -->
+        <!-- ========================= -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Chitti No.
+                        </th>
+
+                        <th>
+                            Value
+                        </th>
+
+                        <th>
+                            Month
+                        </th>
+
+                        <th>
+                            Amount<br>to Pay
+                        </th>
+
+                        <th>
+                            Amount<br>Paid
+                        </th>
+
+                        <th>
+                            Balance
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="chittiNumberTable"
+                            >
+
+                        </td>
+
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="chittiValue"
+                            >
+
+                        </td>
+
+
+                        <td>
+
+                            <input
+                                type="month"
+                                id="chittiMonth"
+                            >
+
+                        </td>
+
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="amountToPay"
+                            >
+
+                        </td>
+
+
+                        <td>
+
+                            <input
+                                type="number"
+                                id="displayPaid"
+                                readonly
+                            >
+
+                        </td>
+
+
+                        <td
+                            class="balance"
+                            id="tableBalance"
+                        >
+                            ₹0
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <!-- ========================= -->
+        <!-- PAYMENT HISTORY -->
+        <!-- ========================= -->
+
+        <h2 class="section-title">
+            PAYMENT HISTORY
+        </h2>
+
+
+        <div class="payment-section">
+
+            <table class="payment-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Amount Paid
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="paymentHistory">
+
+                </tbody>
+
+            </table>
+
+
+            <button
+                class="add-payment"
+                id="addPayment"
+            >
+                ＋ Add Payment
+            </button>
+
+        </div>
+
+
+
+        <!-- ========================= -->
+        <!-- TOTALS -->
+        <!-- ========================= -->
+
+        <div class="totals">
+
+            <div>
+
+                <span>
+                    Amount to Pay
+                </span>
+
+                <strong id="totalAmountToPay">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Total Paid
+                </span>
+
+                <strong
+                    class="paid"
+                    id="totalPaid"
+                >
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Balance
+                </span>
+
+                <strong
+                    class="remaining"
+                    id="remainingBalance"
+                >
+                    ₹0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ========================= -->
+        <!-- NOTES -->
+        <!-- ========================= -->
+
+        <div class="bottom-fields">
+
+
+            <div>
+
+                <label>
+                    Next Action
+                </label>
+
+                <textarea
+                    id="nextAction"
+                    placeholder="Write the next action..."
+                ></textarea>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Signature
+                </label>
+
+                <input
+                    type="text"
+                    id="signature"
+                    placeholder="Signature"
+                >
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- ========================= -->
+<!-- ADD MEMBER MODAL -->
+<!-- ========================= -->
+
+<div
+    id="memberModal"
+    class="modal"
+>
+
+    <div class="modal-box">
+
+        <h2>
+            ➕ Add New Member
+        </h2>
+
+
+        <label>
+            Member Number
+        </label>
+
+        <input
+            type="number"
+            id="newMemberNumber"
+            placeholder="Example: 5"
+        >
+
+
+        <label>
+            Member Name
+        </label>
+
+        <input
+            type="text"
+            id="newMemberName"
+            placeholder="Enter member name"
+        >
+
+
+        <label>
+            Phone Number
+        </label>
+
+        <input
+            type="tel"
+            id="newMemberPhone"
+            placeholder="Enter phone number"
+        >
+
+
+        <div class="modal-buttons">
+
+            <button
+                id="cancelMember"
+                class="cancel-btn"
+            >
+                Cancel
+            </button>
+
+
+            <button
+                id="confirmMember"
+                class="confirm-btn"
+            >
+                Add Member
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- BEAUTIFUL CHITTI SLIP -->
+
+<div id="slipModal" class="slip-modal">
+
+    <div class="chitti-slip" id="chittiSlip">
+
+        <div class="slip-header">
+            <h1>CHITTI PAYMENT SLIP</h1>
+            <p>Thank you for your payment ❤️</p>
+        </div>
+
+        <div class="slip-info">
+
+            <div>
+                <span>Member</span>
+                <strong id="slipMemberName">-</strong>
+            </div>
+
+            <div>
+                <span>Phone</span>
+                <strong id="slipPhone">-</strong>
+            </div>
+
+            <div>
+                <span>Chitti No.</span>
+                <strong id="slipChittiNo">-</strong>
+            </div>
+
+            <div>
+                <span>Chitti Value</span>
+                <strong id="slipValue">-</strong>
+            </div>
+
+        </div>
+
+        <div class="slip-table">
+
+            <div class="slip-row slip-title">
+                <span>Date</span>
+                <span>Amount Paid</span>
+            </div>
+
+            <div id="slipPayments"></div>
+
+        </div>
+
+        <div class="slip-total">
+
+            <p>
+                Total Amount to Pay
+                <strong id="slipAmount">₹0</strong>
+            </p>
+
+            <p>
+                Total Paid
+                <strong id="slipPaid">₹0</strong>
+            </p>
+
+            <p class="slip-balance">
+                Balance
+                <strong id="slipBalance">₹0</strong>
+            </p>
+
+        </div>
+
+        <div class="slip-footer">
+            <p id="slipNextAction"></p>
+            <p>Thank you ❤️</p>
+        </div>
+
+    </div>
+
+
+    <div class="slip-actions">
+
+        <button id="closeSlip">
+            Close
+        </button>
+
+        <button id="downloadSlip">
+            📥 Download Slip
+        </button>
+
+        <button
+            id="slipWhatsapp"
+            class="whatsapp-btn"
+        >
+            💬 WhatsApp
+        </button>
+        
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
