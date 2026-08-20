@@ -1361,7 +1361,7 @@ Thank you ❤️`;
     }
 );
 // ==========================================
-// DOWNLOAD BEAUTIFUL SLIP
+// DOWNLOAD SLIP AS HTML FILE
 // ==========================================
 
 const downloadSlip =
@@ -1372,163 +1372,160 @@ downloadSlip.addEventListener("click", function () {
     const slip =
         document.getElementById("chittiSlip");
 
-    // Open the browser print window
-    const printWindow =
-        window.open("", "_blank");
+    const member =
+        getSelectedMember();
 
-    printWindow.document.write(`
-        <!DOCTYPE html>
+    if (!member) {
+        alert("Please select a member first.");
+        return;
+    }
 
-        <html>
+    const slipHTML = `
+<!DOCTYPE html>
+<html>
+<head>
 
-        <head>
+<meta charset="UTF-8">
 
-            <title>Chitti Payment Slip</title>
+<title>Chitti Slip - ${member.name}</title>
 
-            <style>
+<style>
 
-                body {
-                    font-family: Arial, sans-serif;
-                    background: white;
-                    padding: 30px;
-                }
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    padding: 30px;
+}
 
-                .chitti-slip {
-                    width: 650px;
-                    max-width: 90%;
-                    margin: auto;
+.chitti-slip {
+    width: 650px;
+    max-width: 90%;
+    margin: auto;
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    border: 2px solid #e5e7eb;
+}
 
-                    background: white;
+.slip-header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #2563eb;
+}
 
-                    padding: 35px;
+.slip-header h1 {
+    color: #2563eb;
+}
 
-                    border-radius: 15px;
+.slip-header p {
+    color: #666;
+}
 
-                    border: 2px solid #e5e7eb;
-                }
+.slip-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 25px 0;
+}
 
-                .slip-header {
-                    text-align: center;
+.slip-info div {
+    background: #f3f4f6;
+    padding: 13px;
+    border-radius: 8px;
+}
 
-                    padding-bottom: 20px;
+.slip-info span {
+    display: block;
+    font-size: 12px;
+    color: #666;
+}
 
-                    border-bottom: 2px solid #2563eb;
-                }
+.slip-info strong {
+    display: block;
+    margin-top: 5px;
+}
 
-                .slip-header h1 {
-                    color: #2563eb;
-                }
+.slip-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
 
-                .slip-header p {
-                    color: #666;
-                }
+.slip-title {
+    background: #2563eb;
+    color: white;
+    font-weight: bold;
+}
 
-                .slip-info {
-                    display: grid;
+.slip-total {
+    margin-top: 25px;
+    padding: 15px;
+    background: #f3f4f6;
+    border-radius: 8px;
+}
 
-                    grid-template-columns: 1fr 1fr;
+.slip-total p {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px;
+}
 
-                    gap: 15px;
+.slip-balance {
+    color: #dc2626;
+    font-size: 18px;
+}
 
-                    margin: 25px 0;
-                }
+.slip-footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #666;
+}
 
-                .slip-info div {
-                    background: #f3f4f6;
+</style>
 
-                    padding: 13px;
+</head>
 
-                    border-radius: 8px;
-                }
+<body>
 
-                .slip-info span {
-                    display: block;
+${slip.outerHTML}
 
-                    font-size: 12px;
+</body>
 
-                    color: #666;
-                }
-
-                .slip-info strong {
-                    display: block;
-
-                    margin-top: 5px;
-                }
-
-                .slip-row {
-                    display: grid;
-
-                    grid-template-columns: 1fr 1fr;
-
-                    padding: 12px;
-
-                    border-bottom: 1px solid #ddd;
-                }
-
-                .slip-title {
-                    background: #2563eb;
-
-                    color: white;
-
-                    font-weight: bold;
-                }
-
-                .slip-total {
-                    margin-top: 25px;
-
-                    padding: 15px;
-
-                    background: #f3f4f6;
-
-                    border-radius: 8px;
-                }
-
-                .slip-total p {
-                    display: flex;
-
-                    justify-content: space-between;
-
-                    padding: 7px;
-                }
-
-                .slip-balance {
-                    color: #dc2626;
-
-                    font-size: 18px;
-                }
-
-                .slip-footer {
-                    text-align: center;
-
-                    margin-top: 25px;
-
-                    color: #666;
-                }
-
-            </style>
-
-        </head>
+</html>
+`;
 
 
-        <body>
+    const blob =
+        new Blob(
+            [slipHTML],
+            {
+                type: "text/html"
+            }
+        );
 
-            ${slip.outerHTML}
 
-            <script>
+    const url =
+        URL.createObjectURL(blob);
 
-                window.onload = function () {
 
-                    window.print();
+    const link =
+        document.createElement("a");
 
-                };
 
-            <\/script>
+    link.href = url;
 
-        </body>
+    link.download =
+        `Chitti-Slip-${member.name}.html`;
 
-        </html>
-    `);
 
-    printWindow.document.close();
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+
+    URL.revokeObjectURL(url);
 
 });
